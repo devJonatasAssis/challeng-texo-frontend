@@ -1,0 +1,11 @@
+.header-wrapper {
+  height: 85px;
+  background-color: #6a5ca6;
+  display: flex;
+  align-items: center;
+  padding-left: 24px;
+}
+
+.title-header {
+  color: #fff;
+}

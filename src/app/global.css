@@ -1,0 +1,21 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+span,
+h1,
+strong {
+  color: #fff;
+  font-family: sans-serif;
+}
+
+.container-wrapper {
+  display: flex;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

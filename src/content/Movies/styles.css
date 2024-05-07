@@ -1,0 +1,150 @@
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #e6e2e2;
+  text-align: left;
+  padding: 8px;
+  color: rgb(48, 63, 74);
+}
+
+tr:nth-child(even) {
+  background-color: #c8c6c6;
+}
+
+.subtitle {
+  color: #373636;
+  font-family: sans-serif;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.table-wrapper {
+  margin-top: 20px;
+
+  border: 1px solid #d0cccc;
+  padding: 20px;
+  border-radius: 6px;
+
+  margin-right: 24px;
+  margin-left: 24px;
+}
+
+.table-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-title {
+  font-size: large;
+  margin-bottom: 20px;
+  color: #6a5ca6;
+}
+
+.select-input-wrapper {
+  margin-bottom: 20px;
+}
+
+.search-input-wrapper {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+
+  button {
+    width: 50px;
+    cursor: pointer;
+    background-color: #6a5ca6;
+    border: none;
+    border-radius: 6px;
+
+    svg {
+      color: #fff;
+    }
+  }
+
+  button:hover {
+    transition: all 1.5;
+    opacity: 0.9;
+  }
+}
+
+.pagination-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.loader-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.filter-wrapper {
+  margin-bottom: 20px;
+}
+
+.filter-wrapper-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  input {
+    width: 100%;
+    height: 50px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    padding-left: 14px;
+  }
+
+  input:not(:placeholder-shown) {
+    border-color: #6a5ca6;
+    background-color: #ddd6fa;
+  }
+
+  .button-filter {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .button-filter:hover {
+    background-color: #6a5ca6;
+    transition: all 0.5s;
+    border: none;
+    color: #fff;
+  }
+
+  .button-filter-all {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: #165ba2;
+    color: #fff;
+    border: 1px solid transparent;
+    border-radius: 6px;
+  }
+
+  .button-filter-all:hover {
+    background-color: #6a5ca6;
+    transition: all 0.5s;
+    border: none;
+    color: #fff;
+  }
+}

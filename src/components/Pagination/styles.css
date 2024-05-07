@@ -1,0 +1,27 @@
+.pagination {
+  display: flex;
+  list-style: none;
+  gap: 5px;
+
+  button {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.page-item {
+  height: 20px;
+}
+
+.page-item-active {
+  background-color: #6a5ca6;
+  color: white;
+}
+
+.page-item:hover {
+  opacity: 0.8;
+  transition: all 0.5s;
+}
