@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
 import "./styles.css";
 import Pagination from "@/components/Pagination";
 import { useQuery } from "react-query";

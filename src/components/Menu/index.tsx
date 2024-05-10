@@ -13,7 +13,7 @@ export default function Menu() {
   return (
     <aside className="container-menu">
       <div className="logo-menu">
-        <Image src={logo} alt="Logo Texo Challenge Frontend" />
+        <Image src={logo} alt="Logo Texo Challenge Frontend" id="logo-menu" />
       </div>
       <ul>
         <MenuItem
