@@ -26,7 +26,11 @@ export default function Pagination({
     <nav>
       <ul className="pagination">
         <li className="page-item">
-          <button className="page-link" onClick={prevPage} itemID="prev-page">
+          <button
+            className="page-link"
+            onClick={prevPage}
+            data-testid="prev-page"
+          >
             <FiArrowLeft />
           </button>
         </li>

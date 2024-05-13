@@ -13,7 +13,7 @@ describe("Pagination component", () => {
     const prevPage = jest.fn();
     const page = 1;
 
-    const { getByText } = render(
+    const { getByTestId } = render(
       <Pagination
         totalPage={totalPage}
         onPagination={onPagination}
@@ -23,33 +23,26 @@ describe("Pagination component", () => {
       />
     );
 
-    expect(getByText("1")).toBeInTheDocument();
-    expect(getByText("2")).toBeInTheDocument();
-    expect(getByText("3")).toBeInTheDocument();
-  });
+    const prevButton = getByTestId("prev-page");
+    const nextButton = getByTestId("next-page");
 
-  it("should calls onPagination with correct page number when next button", () => {
-    const page = 2;
-    const totalPage = 5;
-    const onPagination = jest.fn();
-    const nextPage = jest.fn();
-    const prevPage = jest.fn();
+    expect(prevButton).toBeInTheDocument();
+    expect(nextButton).toBeInTheDocument();
 
-    render(
-      <Pagination
-        totalPage={totalPage}
-        page={page}
-        onPagination={onPagination}
-        nextPage={nextPage}
-        prevPage={prevPage}
-      />
-    );
+    for (let i = 1; i <= totalPage; i++) {
+      const pageButton = screen.getByText(i.toString());
+      expect(pageButton).toBeInTheDocument();
+      if (i === page) {
+        expect(pageButton).toHaveClass("page-item-active");
+      } else {
+        expect(pageButton).not.toHaveClass("page-item-active");
+      }
+    }
 
-    const next = screen.getByTestId("next-page");
+    fireEvent.click(prevButton);
+    fireEvent.click(nextButton);
 
-    fireEvent.click(next);
-
-    expect(jest.fn()).toHaveBeenCalledTimes(1);
-    expect(jest.fn()).toHaveBeenCalledWith(page + 1);
+    expect(prevPage).toHaveBeenCalledTimes(1);
+    expect(nextPage).toHaveBeenCalledTimes(1);
   });
 });

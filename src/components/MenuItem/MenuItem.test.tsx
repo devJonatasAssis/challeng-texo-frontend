@@ -7,24 +7,15 @@ import "./styles.css";
 
 describe("Menu Item component", () => {
   it("should render menu item", async () => {
-    const { getByText } = render(
+    const { getByRole, getByText } = render(
       <MenuItem path={"/filmes"} label={"Filmes"} icon={undefined} />
     );
 
-    expect(getByText("Filmes")).toBeInTheDocument();
-  });
+    const linkElement = getByRole("link", { name: "Filmes" });
+    expect(linkElement).toBeInTheDocument();
+    expect(linkElement).toHaveAttribute("href", "/filmes");
 
-  it("should click menu item nagivation route", async () => {
-    const onClick = jest.fn();
-
-    const { getByText } = render(
-      <MenuItem path={"/filmes"} label={"Filmes"} icon={undefined} />
-    );
-
-    const buttonElement = getByText("Filmes");
-
-    fireEvent.click(buttonElement);
-
-    expect(onClick).toHaveBeenCalledTimes(0);
+    const labelElement = getByText("Filmes");
+    expect(labelElement).toBeInTheDocument();
   });
 });
