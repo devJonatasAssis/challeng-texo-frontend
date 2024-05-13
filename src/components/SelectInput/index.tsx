@@ -10,9 +10,16 @@ interface IProps {
   data: IDataProps[];
   label: string;
   onSelected: (e: string) => void;
+  value: any;
 }
 
-export default function SelectInput({ name, data, onSelected, label }: IProps) {
+export default function SelectInput({
+  name,
+  data,
+  onSelected,
+  label,
+  value,
+}: IProps) {
   return (
     <div className="wrapper-content">
       <span>{label}</span>
@@ -21,6 +28,7 @@ export default function SelectInput({ name, data, onSelected, label }: IProps) {
         id="pet-select"
         className="select-wrapper"
         onChange={(e) => onSelected(e.target.value)}
+        value={value}
       >
         <option value="">--Escolha um opção--</option>
         {data.map((item, index) => (

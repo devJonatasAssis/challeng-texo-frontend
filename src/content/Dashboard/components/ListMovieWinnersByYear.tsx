@@ -10,6 +10,9 @@ import { useMutation, useQuery } from "react-query";
 import { useForm } from "react-hook-form";
 import Loader from "@/components/Loader";
 import { useListMovieWinnersByYear } from "@/hooks/useListMovieWinnersByYear";
+import Grid from "@/components/Grid";
+import { Col } from "@/components/Col";
+import { Button } from "@/components/Button";
 
 interface IProps {
   id: string;
@@ -21,19 +24,25 @@ interface IProps {
 }
 
 export default function ListMovieWinnersByYear() {
-  const { setValue, getValues } = useForm({
-    defaultValues: {
-      year: "0",
-    },
-  });
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const { data, isLoading, isError, refetch } = useListMovieWinnersByYear(getValues('year'));
+  const { setValue, watch, getValues } = useForm();
 
-  if (isLoading) return <Loader />;
-  if (isError) return <span>Não foi possível buscar os dados</span>;
+  const { year } = watch();
+
+  if (loading) return <Loader />;
 
   const onFilter = async () => {
-    refetch();
+    try {
+      setLoading(true);
+      const response = await DashboardApi.getWinnersByYear(year);
+      setData(response);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -41,20 +50,19 @@ export default function ListMovieWinnersByYear() {
       <div className="table-content">
         <span className="table-title">List movie winners by year</span>
 
-        <div className="search-input-wrapper">
-          <SelectInput
-            data={(mockYears ?? []).map((item) => ({
-              value: item.value,
-              label: item.label,
-            }))}
-            onSelected={(e) => setValue("year", e)}
-            name="year"
-            label="Selecione um ano"
-          />
+        <SelectInput
+          data={(mockYears ?? []).map((item) => ({
+            value: item.value,
+            label: item.label,
+          }))}
+          onSelected={(e) => setValue("year", e)}
+          name="year"
+          label="Selecione um ano"
+          value={getValues("year")}
+        />
 
-          <button onClick={onFilter}>
-            <FiSearch />
-          </button>
+        <div className="button-filter">
+          <Button onClick={onFilter} label="Filtrar" />
         </div>
 
         <table>
@@ -65,7 +73,7 @@ export default function ListMovieWinnersByYear() {
               <th>Title</th>
             </tr>
 
-            {data?.map((item: IProps) => (
+            {data.map((item: IProps) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.year}</td>
