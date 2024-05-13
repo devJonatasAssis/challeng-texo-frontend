@@ -26,7 +26,7 @@ export default function FilterMovies({
   onFilter,
   onSearchAll,
 }: FilterMoviesProps) {
-  const { register, setValue } = form;
+  const { register, setValue, getValues } = form;
 
   return (
     <Grid>
@@ -48,6 +48,7 @@ export default function FilterMovies({
           name="winners"
           onSelected={(e) => setValue("winner", e)}
           label="Winners"
+          value={getValues("winner")}
         />
       </Col>
 
