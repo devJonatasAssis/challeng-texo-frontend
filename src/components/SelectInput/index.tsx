@@ -14,7 +14,7 @@ interface IProps {
 
 export default function SelectInput({ name, data, onSelected, label }: IProps) {
   return (
-    <>
+    <div className="wrapper-content">
       <span>{label}</span>
       <select
         name={name}
@@ -29,6 +29,6 @@ export default function SelectInput({ name, data, onSelected, label }: IProps) {
           </option>
         ))}
       </select>
-    </>
+    </div>
   );
 }

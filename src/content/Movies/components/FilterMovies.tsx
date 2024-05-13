@@ -1,9 +1,17 @@
+import { Button } from "@/components/Button";
+import { Col } from "@/components/Col";
+import Grid from "@/components/Grid";
+import { Input } from "@/components/Input";
 import SelectInput from "@/components/SelectInput";
 import { UseFormReturn } from "react-hook-form";
-import { FiSearch } from "react-icons/fi";
+
+export interface IFormFilterProps {
+  year: number;
+  winner: string;
+}
 
 interface FilterMoviesProps {
-  form: UseFormReturn;
+  form: UseFormReturn<IFormFilterProps>;
   onFilter: () => void;
   onSearchAll: () => void;
 }
@@ -18,43 +26,42 @@ export default function FilterMovies({
   onFilter,
   onSearchAll,
 }: FilterMoviesProps) {
-  const { register, setValue, watch } = form;
-
-  const { year, winner } = watch();
-
-  const isDisableFilter = !year || !winner;
+  const { register, setValue } = form;
 
   return (
-    <div className="filter-wrapper-content">
-      <input
-        {...register("year")}
-        type="text"
-        placeholder="Digite um ano"
-        value={year}
-      />
+    <Grid>
+      <Col>
+        <Input
+          register={register}
+          name="year"
+          label="Year"
+          placeholder="Digite um ano válido"
+        />
+      </Col>
 
-      <SelectInput
-        data={(winners ?? []).map((item) => ({
-          label: item.label,
-          value: item.value,
-        }))}
-        name="winners"
-        onSelected={(e) => setValue("winner", e)}
-      />
+      <Col>
+        <SelectInput
+          data={(winners ?? []).map((item) => ({
+            label: item.label,
+            value: item.value,
+          }))}
+          name="winners"
+          onSelected={(e) => setValue("winner", e)}
+          label="Winners"
+        />
+      </Col>
 
-      <button
-        className={`button-filter ${isDisableFilter ? "disabled" : ""}`}
-        onClick={onFilter}
-        disabled={!year || !winner}
-      >
-        <FiSearch />
-        Filtrar
-      </button>
+      <Col>
+        <div className="item-button">
+          <Button label="Filtrar" onClick={onFilter} />
+        </div>
+      </Col>
 
-      <button className="button-filter-all" onClick={onSearchAll}>
-        <FiSearch />
-        Buscar todos
-      </button>
-    </div>
+      <Col>
+        <div className="item-button">
+          <Button label="Buscar todos" onClick={onSearchAll} />
+        </div>
+      </Col>
+    </Grid>
   );
 }

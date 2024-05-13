@@ -9,3 +9,10 @@
 .select-wrapper:focus {
   border: 1px solid #6a5ca6;
 }
+
+.wrapper-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: "100%";
+}

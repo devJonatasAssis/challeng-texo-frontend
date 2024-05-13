@@ -1,9 +1,8 @@
 "use client";
 
-import { DashboardApi } from "@/services/dashboard.service";
 import "./styles.css";
-import { useQuery } from "react-query";
 import Loader from "@/components/Loader";
+import { useListProducersLongShortInterval } from "@/hooks";
 
 interface IProps {
   producer: string;
@@ -13,10 +12,7 @@ interface IProps {
 }
 
 export default function ListProducersLongShortInterval() {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["getProducersLongShortInterval"],
-    queryFn: () => DashboardApi.getProducersLongShortInterval(),
-  });
+  const { data, isLoading, isError } = useListProducersLongShortInterval();
 
   if (isLoading) return <Loader />;
   if (isError) return <span>Não foi possível buscar os dados</span>;

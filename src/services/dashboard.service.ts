@@ -2,7 +2,7 @@ import { api } from "./api.service";
 
 interface IMoviesProps {
   page: number;
-  winner?: boolean;
+  winner?: string;
   year?: number;
   size?: number;
 }

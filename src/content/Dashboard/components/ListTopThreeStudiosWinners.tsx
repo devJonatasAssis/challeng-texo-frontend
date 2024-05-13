@@ -1,9 +1,8 @@
 "use client";
 
-import { useQuery } from "react-query";
 import "./styles.css";
-import { DashboardApi } from "@/services/dashboard.service";
 import Loader from "@/components/Loader";
+import { useListTopThreeStudiosWinners } from "@/hooks/useListTopThreeStudiosWinners";
 
 interface ITopThreeStudiosWinner {
   name: string;
@@ -11,15 +10,10 @@ interface ITopThreeStudiosWinner {
 }
 
 export default function ListTopThreeStudiosWinners() {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["getTopThreeStudios"],
-    queryFn: () => DashboardApi.getStudiosWithWinCount(),
-  });
+  const { data, isLoading, isError } = useListTopThreeStudiosWinners();
 
   if (isLoading) return <Loader />;
   if (isError) return <span>Não foi possível buscar os dados</span>;
-
-  const topThree = data.studios.slice(0, 3);
 
   return (
     <div className="table-wrapper">
@@ -33,12 +27,14 @@ export default function ListTopThreeStudiosWinners() {
               <th>Win Count</th>
             </tr>
 
-            {topThree.map((item: ITopThreeStudiosWinner, index: number) => (
-              <tr key={index}>
-                <td>{item.name}</td>
-                <td>{item.winCount}</td>
-              </tr>
-            ))}
+            {data.studios
+              .map((item: ITopThreeStudiosWinner, index: number) => (
+                <tr key={index}>
+                  <td>{item.name}</td>
+                  <td>{item.winCount}</td>
+                </tr>
+              ))
+              .slice(0, 3)}
           </tbody>
         </table>
       </div>

@@ -5,8 +5,10 @@ import { useQuery } from "react-query";
 import { DashboardApi } from "@/services/dashboard.service";
 import Loader from "@/components/Loader";
 import { useState } from "react";
-import FilterMovies from "./components/FilterMovies";
+import FilterMovies, { IFormFilterProps } from "./components/FilterMovies";
 import { useForm } from "react-hook-form";
+import { validationFilterMoviesSchema } from "./components/validation";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 interface IDataProps {
   id: string;
@@ -20,7 +22,10 @@ export default function Movies() {
   const [isFiltered, setIsFiltered] = useState(false);
   const [moviesFiltered, setMoviesFiltered] = useState([]);
 
-  const form = useForm();
+  const form = useForm<IFormFilterProps>({
+    mode: "all",
+    resolver: yupResolver(validationFilterMoviesSchema),
+  });
 
   const { year, winner } = form.watch();
 
@@ -35,6 +40,12 @@ export default function Movies() {
 
   const handleFilter = async () => {
     try {
+      await form.trigger(undefined, { shouldFocus: true });
+
+      if (!form.formState.isValid) {
+        return;
+      }
+
       setIsFiltered(true);
       const response = await DashboardApi.getMovies({ page, winner, year });
       setMoviesFiltered(response);

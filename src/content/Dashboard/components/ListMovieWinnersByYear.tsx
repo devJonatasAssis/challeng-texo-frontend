@@ -2,10 +2,14 @@
 
 import "./styles.css";
 import { DashboardApi } from "@/services/dashboard.service";
-import { useState } from "react";
+import { use, useState } from "react";
 import SelectInput from "@/components/SelectInput";
 import { FiSearch } from "react-icons/fi";
 import { mockYears } from "@/mock/years";
+import { useMutation, useQuery } from "react-query";
+import { useForm } from "react-hook-form";
+import Loader from "@/components/Loader";
+import { useListMovieWinnersByYear } from "@/hooks/useListMovieWinnersByYear";
 
 interface IProps {
   id: string;
@@ -17,16 +21,19 @@ interface IProps {
 }
 
 export default function ListMovieWinnersByYear() {
-  const [data, setData] = useState([]);
-  const [year, setYear] = useState("");
+  const { setValue, getValues } = useForm({
+    defaultValues: {
+      year: "0",
+    },
+  });
+
+  const { data, isLoading, isError, refetch } = useListMovieWinnersByYear(getValues('year'));
+
+  if (isLoading) return <Loader />;
+  if (isError) return <span>Não foi possível buscar os dados</span>;
 
   const onFilter = async () => {
-    try {
-      const response = await DashboardApi.getWinnersByYear(year);
-      setData(response);
-    } catch (error) {
-      alert("Não foi possível buscar os dados");
-    }
+    refetch();
   };
 
   return (
@@ -40,8 +47,9 @@ export default function ListMovieWinnersByYear() {
               value: item.value,
               label: item.label,
             }))}
-            onSelected={(e) => setYear(e)}
+            onSelected={(e) => setValue("year", e)}
             name="year"
+            label="Selecione um ano"
           />
 
           <button onClick={onFilter}>

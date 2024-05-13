@@ -1,9 +1,8 @@
 "use client";
 
-import { useQuery } from "react-query";
 import "./styles.css";
-import { DashboardApi } from "@/services/dashboard.service";
 import Loader from "@/components/Loader";
+import { useListYearsMultipleWinners } from "@/hooks";
 
 interface ITopThreeStudiosWinner {
   year: string;
@@ -11,10 +10,7 @@ interface ITopThreeStudiosWinner {
 }
 
 export default function ListYearsMultipleWinners() {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["getYearMultipleWinners"],
-    queryFn: () => DashboardApi.getYearsMultipleWinners(),
-  });
+  const { data, isLoading, isError } = useListYearsMultipleWinners();
 
   if (isLoading) return <Loader />;
   if (isError) return <span>Não foi possível buscar os dados</span>;
