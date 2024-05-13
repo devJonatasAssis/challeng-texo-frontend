@@ -66,7 +66,7 @@ describe("Movies Content", () => {
   });
 
   it("should filter movies", async () => {
-    const { getByText, findByText, getByPlaceholderText } = render(
+    const { getByText, findByText, findByPlaceholderText } = render(
       <QueryClientProvider client={new QueryClient()}>
         <Movies />
       </QueryClientProvider>
@@ -76,7 +76,9 @@ describe("Movies Content", () => {
       expect(DashboardApi.getMovies).toHaveBeenCalledTimes(5);
     });
 
-    userEvent.type(getByPlaceholderText("Digite um ano válido"), "1980");
+    const input = await findByPlaceholderText("Digite um ano válido");
+
+    fireEvent.change(input, { target: { value: "1980" } });
 
     fireEvent.click(getByText("Filtrar"));
 
