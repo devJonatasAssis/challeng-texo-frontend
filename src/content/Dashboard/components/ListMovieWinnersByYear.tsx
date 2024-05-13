@@ -2,16 +2,11 @@
 
 import "./styles.css";
 import { DashboardApi } from "@/services/dashboard.service";
-import { use, useState } from "react";
+import { useState } from "react";
 import SelectInput from "@/components/SelectInput";
-import { FiSearch } from "react-icons/fi";
 import { mockYears } from "@/mock/years";
-import { useMutation, useQuery } from "react-query";
 import { useForm } from "react-hook-form";
 import Loader from "@/components/Loader";
-import { useListMovieWinnersByYear } from "@/hooks/useListMovieWinnersByYear";
-import Grid from "@/components/Grid";
-import { Col } from "@/components/Col";
 import { Button } from "@/components/Button";
 
 interface IProps {
