@@ -1,4 +1,4 @@
-## Projeto Challenge Texo Backend Node.js com Express, TypeScript, MongoDB Memory Server, csvtojson, Jest e SuperTest
+## Projeto Challenge Texo Frontend React Next.js, TypeScript, React Hook Form, React Query, React Icons, React Loader Spinner e Yup
 
 Este é uma interface que possibilita a leitura da lista de indicados e vencedores
 da categoria Pior Filme do Golden Raspberry Awards.
